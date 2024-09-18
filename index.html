@@ -15,12 +15,17 @@
 
         document.addEventListener("DOMContentLoaded", async function (event) {
             try {
-                await navigator.clipboard.writeText(urlParams.get('qrcode'));
-                var p = document.createElement('p');
-                p.innerHTML = 'Qr Code copiado, você já pode fechar essa pagina!';
-                p.style = 'text-align: center';
-                document.body.appendChild(p)
-                window.opener = self;
+                let result = await navigator.permissions.query({ name: "clipboard-write" });
+
+                if (result.state === "granted" || result.state === "prompt") {
+                    /* write to the clipboard now */
+
+                    await navigator.clipboard.writeText(urlParams.get('qrcode'));
+                    var p = document.createElement('p');
+                    p.innerHTML = 'Qr Code copiado, você já pode fechar essa pagina!';
+                    p.style = 'text-align: center';
+                    document.body.appendChild(p)
+                }
             } catch (error) {
                 alert(error.message);
             }
