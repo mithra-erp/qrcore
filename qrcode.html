@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const queryString = window.location.search;
+        console.log(queryString)
+        const urlParams = new URLSearchParams(queryString);
+
+        document.addEventListener("DOMContentLoaded", async function (event) {
+            try {
+                await navigator.clipboard.writeText(urlParams.get('qrcode'));
+                var p = document.createElement('p');
+                p.innerHTML = 'Qr Code copiado, você já pode fechar essa pagina!';
+                p.style = 'text-align: center';
+                document.body.appendChild(p)
+                window.opener = self;
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+        //document.body.removeChild(textArea);
+    </script>
+</body>
+
+</html>
