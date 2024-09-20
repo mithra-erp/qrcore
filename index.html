@@ -17,8 +17,8 @@
         </div>
         <div id="qrcode" class="mx-auto p-2" style="width: 200px;"></div>
         <textarea class="form-control text-center mb-2" id="copia-e-cola" readonly></textarea>
-        <div class="d-grid gap-2 col-4 mx-auto">
-            <button type="button" class="btn btn-primary mb-2" onclick="copy(this)">Copiar</button>
+        <div class="d-grid gap-2 col-4 mx-auto mb-2">
+            <button type="button" class="btn btn-primary" onclick="copy(this)">Copiar</button>
         </div>
         <div id="alert-success" class="alert alert-success text-center" style="opacity: 0" role="alert">
             Qr Code copiado, já pode fechar essa pagina!
@@ -34,6 +34,7 @@
         console.log(queryString)
         const urlParams = new URLSearchParams(queryString);
         const pix = urlParams.get('qrcode');
+        console.log(pix)
         var qrcode = new QRCode(document.getElementById("qrcode"), {
             text: pix,
             width: 200,
