@@ -18,7 +18,10 @@
         <div id="qrcode" class="mx-auto p-2" style="width: 200px;"></div>
         <textarea class="form-control text-center mb-2" id="copia-e-cola" readonly></textarea>
         <div class="d-grid gap-2 col-4 mx-auto">
-            <button type="button" class="btn btn-primary" onclick="copy()">Copiar</button>
+            <button type="button" class="btn btn-primary mb-2" onclick="copy(this)">Copiar</button>
+        </div>
+        <div id="alert-success" class="alert alert-success text-center" style="opacity: 0" role="alert">
+            Qr Code copiado, já pode fechar essa pagina!
         </div>
     </div>
 
@@ -58,7 +61,7 @@
         //     }
         // });
         //document.body.removeChild(textArea);
-        function copy() {
+        function copy(sender) {
             // Get the text field
             var copyText = document.getElementById("copia-e-cola");
 
@@ -70,7 +73,23 @@
             navigator.clipboard.writeText(copyText.value);
 
             // Alert the copied text
-            alert("Copied the text: " + copyText.value);
+            //alert("Copied the text: " + copyText.value);
+            fade(document.getElementById("alert-success"));
+            sender.setAttribute('disabled', 'disabled');
+        }
+
+        function fade(element) {
+            var op = 0;  // initial opacity
+            var timer = setInterval(function () {
+                if (op >= 1) {
+                    clearInterval(timer);
+                    return;
+                }
+                element.style.opacity = op;
+                console.log(element.style.opacity )
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op +=  0.1;
+            }, 10);
         }
     </script>
 </body>
